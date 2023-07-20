@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: orders-service
+  name: orders-app
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: orders-service
+      app: orders-app
   template:
     metadata:
       labels:
-        app: orders-service
+        app: orders-app
     spec:
       containers:
-        - name: orders-service
-          image: your-docker-image:tag
+        - name: orders-app
+          image: 206798921196.dkr.ecr.us-east-1.amazonaws.com/ecr_demo_obli:orders_devops
           ports:
             - containerPort: 8080
           env:
