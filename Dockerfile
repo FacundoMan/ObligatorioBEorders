@@ -8,4 +8,5 @@
 FROM openjdk:8-jdk-alpine
 ARG JAR_FILE=orders-service-example-0.0.1-SNAPSHOT.jar
 COPY ${JAR_FILE} app.jar
-CMD java -jar /app.jar $PAYMENT_SERVICE $SHIPPING_SERVICE $PRODUCTS_SERVICE
+ENTRYPOINT ["java", "-jar", "/app.jar"]
+CMD []
