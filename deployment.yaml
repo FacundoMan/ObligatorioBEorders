@@ -1,30 +1,33 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: obligatorio-be-orders-devops
-  labels:
-    app: orders-app
+  name: orders-service
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: orders-app
+      app: orders-service
   template:
     metadata:
       labels:
-        app: orders-app
+        app: orders-service
     spec:
       containers:
-        - name: orders-app
-          image: 206798921196.dkr.ecr.us-east-1.amazonaws.com/ecr_demo_obli:orders_devops
-          imagePullPolicy: Always
+        - name: orders-service
+          image: your-docker-image:tag
           ports:
             - containerPort: 8080
-                    env:
+          env:
             - name: PAYMENT_SERVICE
               value: "abfdca1dd319f453b98685429ff4d417-1896863135.us-east-1.elb.amazonaws.com"
             - name: SHIPPING_SERVICE
               value: "a41213400f45a4f25864f6162eaea70c-1625216118.us-east-1.elb.amazonaws.com"
             - name: PRODUCTS_SERVICE
               value: "a81afd56394fc4a9d890d759051c666e-1416510889.us-east-1.elb.amazonaws.com"
-          command: ["java", "-jar", "/app.jar", "$(PAYMENT_SERVICE)", "$(SHIPPING_SERVICE)", "$(PRODUCTS_SERVICE)"]
+          command:
+            - "java"
+            - "-jar"
+            - "/app.jar"
+            - "$(PAYMENT_SERVICE)"
+            - "$(SHIPPING_SERVICE)"
+            - "$(PRODUCTS_SERVICE)"
